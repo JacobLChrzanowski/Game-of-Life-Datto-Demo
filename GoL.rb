@@ -20,7 +20,7 @@
 GoL = Struct.new(:height, :width, :grid)
 
 
-# nArray creates a new 2D array of height 'height' and width 'width.'
+# nArray creates a new 2D array of height 'height' and width 'width'
 #
 # => height -> number of columns in new 2D array
 # => width -> number of rows in new 2D array
