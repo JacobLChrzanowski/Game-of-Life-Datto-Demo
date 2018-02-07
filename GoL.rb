@@ -97,12 +97,12 @@ end
 def fNeighbors(map, row, col)
     neighbors = 0
     if !((row == 0)             ||  (col == 0))             then if(map.grid[(row - 1)][(col - 1)]  == '1') then neighbors += 1 end end
-    if !((row == 0))                                        then if(map.grid[(row - 1)][(col)]      == '1') then neighbors += 1 end end
+    if !((row == 0))                                        then if(map.grid[(row - 1)][(col)    ]  == '1') then neighbors += 1 end end
     if !((row == 0)             ||  (col == map.width-1))   then if(map.grid[(row - 1)][(col + 1)]  == '1') then neighbors += 1 end end
-    if !(                           (col == 0))             then if(map.grid[(row)][(col - 1)]      == '1') then neighbors += 1 end end
-    if !(                           (col == map.width-1))   then if(map.grid[(row)][(col + 1)]      == '1') then neighbors += 1 end end
+    if !(                           (col == 0))             then if(map.grid[(row)    ][(col - 1)]  == '1') then neighbors += 1 end end
+    if !(                           (col == map.width-1))   then if(map.grid[(row)    ][(col + 1)]  == '1') then neighbors += 1 end end
     if !((row == map.height-1)  ||  (col == 0))             then if(map.grid[(row + 1)][(col - 1)]  == '1') then neighbors += 1 end end
-    if !((row == map.height-1))                             then if(map.grid[(row + 1)][(col)]      == '1') then neighbors += 1 end end
+    if !((row == map.height-1))                             then if(map.grid[(row + 1)][(col)    ]  == '1') then neighbors += 1 end end
     if !((row == map.height-1)  ||  (col == map.width-1))   then if(map.grid[(row + 1)][(col + 1)]  == '1') then neighbors += 1 end end
     return neighbors
 end
