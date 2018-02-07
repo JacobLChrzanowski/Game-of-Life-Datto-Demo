@@ -20,15 +20,15 @@
 GoL = Struct.new(:height, :width, :grid)
 
 
-# nArray creates a new 2D array of height 'height' and width 'width'
+# nArray creates a new 2D array of height 'height' and width 'width.'
 #
 # => height -> number of columns in new 2D array
 # => width -> number of rows in new 2D array
 #
 def nArray(height, width)
-	a = Array.new(height)
-	a.map! { Array.new(width) }
-	return a
+    a = Array.new(height)
+    a.map! { Array.new(width) }
+    return a
 end
 
 # getMap takes a filename and returns a map structure
@@ -39,48 +39,48 @@ end
 # => file -> name of file to access
 #
 def getMap(file)
-	map = GoL.new()
-	map.height = 0
-	map.width = 0
+    map = GoL.new()
+    map.height = 0
+    map.width = 0
 
-	openFile = File.open(file, "r")
-	openFile.each_line do |line|
-		map.height += 1
-		line = line.gsub("\n",'')
-		if (map.width == 0)
-			(map.width = line.length)
-		else
-			if (map.width != line.length) 
-				abort("\n'" + ARGV[0] +
-					"' is not formatted correctly!\n" +
-					"There are inconsistent widths to " +
-					"this file's formatting at line " +
-					String(map.height) + "."
-				)
-			end
-		end
-		for i in 0..map.width-1
-			if (line[i] != '1' && line[i] != '0')
-				abort("\n'" + ARGV[0] +
-					"' is not formatted correctly!\n" +
-					"An illegal character, '" + line[i] +
-					"' was found!"
-				)
-			end
-		end
-	end
+    openFile = File.open(file, "r")
+    openFile.each_line do |line|
+        map.height += 1
+        line = line.gsub("\n",'')
+        if (map.width == 0)
+            (map.width = line.length)
+        else
+            if (map.width != line.length) 
+                abort("\n'" + ARGV[0] +
+                    "' is not formatted correctly!\n" +
+                    "There are inconsistent widths to " +
+                    "this file's formatting at line " +
+                    String(map.height) + "."
+                )
+            end
+        end
+        for i in 0..map.width-1
+            if (line[i] != '1' && line[i] != '0')
+                abort("\n'" + ARGV[0] +
+                    "' is not formatted correctly!\n" +
+                    "An illegal character, '" + line[i] +
+                    "' was found!"
+                )
+            end
+        end
+    end
 
-	map.grid = nArray(map.height, map.width)
-	y = 0
-	openFile.rewind
-	openFile.each_line do |line|
-		for x in 0..map.width-1
-			map.grid[y][x] = line[x]
-		end
-		y += 1
-	end
-	openFile.close
-	return map
+    map.grid = nArray(map.height, map.width)
+    y = 0
+    openFile.rewind
+    openFile.each_line do |line|
+        for x in 0..map.width-1
+            map.grid[y][x] = line[x]
+        end
+        y += 1
+    end
+    openFile.close
+    return map
 end
 
 
@@ -95,16 +95,16 @@ end
 # => col -> column to look around
 #
 def fNeighbors(map, row, col)
-	neighbors = 0
-	if !((row == 0)				||	(col == 0))				then if(map.grid[(row - 1)][(col - 1)]	== '1')	then neighbors += 1 end end
-	if !((row == 0))										then if(map.grid[(row - 1)][(col)]		== '1')	then neighbors += 1 end end
-	if !((row == 0)				||	(col == map.width-1))	then if(map.grid[(row - 1)][(col + 1)]	== '1')	then neighbors += 1 end end
-	if !(							(col == 0))				then if(map.grid[(row)][(col - 1)]		== '1')	then neighbors += 1 end end
-	if !(							(col == map.width-1))	then if(map.grid[(row)][(col + 1)]		== '1')	then neighbors += 1 end end
-	if !((row == map.height-1)	||	(col == 0))				then if(map.grid[(row + 1)][(col - 1)]	== '1')	then neighbors += 1 end end
-	if !((row == map.height-1))								then if(map.grid[(row + 1)][(col)]		== '1')	then neighbors += 1 end end
-	if !((row == map.height-1)	||	(col == map.width-1))	then if(map.grid[(row + 1)][(col + 1)]	== '1')	then neighbors += 1 end end
-	return neighbors
+    neighbors = 0
+    if !((row == 0)             ||  (col == 0))             then if(map.grid[(row - 1)][(col - 1)]  == '1') then neighbors += 1 end end
+    if !((row == 0))                                        then if(map.grid[(row - 1)][(col)]      == '1') then neighbors += 1 end end
+    if !((row == 0)             ||  (col == map.width-1))   then if(map.grid[(row - 1)][(col + 1)]  == '1') then neighbors += 1 end end
+    if !(                           (col == 0))             then if(map.grid[(row)][(col - 1)]      == '1') then neighbors += 1 end end
+    if !(                           (col == map.width-1))   then if(map.grid[(row)][(col + 1)]      == '1') then neighbors += 1 end end
+    if !((row == map.height-1)  ||  (col == 0))             then if(map.grid[(row + 1)][(col - 1)]  == '1') then neighbors += 1 end end
+    if !((row == map.height-1))                             then if(map.grid[(row + 1)][(col)]      == '1') then neighbors += 1 end end
+    if !((row == map.height-1)  ||  (col == map.width-1))   then if(map.grid[(row + 1)][(col + 1)]  == '1') then neighbors += 1 end end
+    return neighbors
 end
 
 
@@ -116,25 +116,25 @@ end
 # => map -> data structure containing :grid, :height, and :width
 #
 def nextIter(map)
-	nIter = nArray(map.height, map.width)
-	for y in 0..map.height-1
-		for x in 0..map.width-1
-			num = fNeighbors(map, y, x)
-			case num
-			when 0..1
-				nIter[y][x] = '0'
-			when 2
-				nIter[y][x] = map.grid[y][x]
-			when 3
-				nIter[y][x] = '1'
-			when 4..8
-				nIter[y][x] = '0'
-			end
-		end
-	end
-	map.grid = nIter
+    nIter = nArray(map.height, map.width)
+    for y in 0..map.height-1
+        for x in 0..map.width-1
+            num = fNeighbors(map, y, x)
+            case num
+            when 0..1
+                nIter[y][x] = '0'
+            when 2
+                nIter[y][x] = map.grid[y][x]
+            when 3
+                nIter[y][x] = '1'
+            when 4..8
+                nIter[y][x] = '0'
+            end
+        end
+    end
+    map.grid = nIter
 
-	return map
+    return map
 end
 
 
@@ -145,12 +145,12 @@ end
 # => map -> data structure containing :grid, :height, and :width
 #
 def printMap(map)
-	for y in 0..map.height-1
-		for x in 0..map.width-1
-			printf("%c", map.grid[y][x])
-		end
-		printf("\n")
-	end
+    for y in 0..map.height-1
+        for x in 0..map.width-1
+            printf("%c", map.grid[y][x])
+        end
+        printf("\n")
+    end
 end
 
 
@@ -162,15 +162,15 @@ end
 #
 def main()
 
-	if (!File.file?(ARGV[0]))
-		abort("'" + ARGV[0] + "' is not a valid filename! Aborting Ruby script!")
-	end
+    if (!File.file?(ARGV[0]))
+        abort("'" + ARGV[0] + "' is not a valid filename! Aborting Ruby script!")
+    end
 
-	map = getMap(ARGV[0])
-	
-	map = nextIter(map)
+    map = getMap(ARGV[0])
+    
+    map = nextIter(map)
 
-	printMap(map)
+    printMap(map)
 
 end
 
